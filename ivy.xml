@@ -7,6 +7,6 @@
         <conf name="runtime" visibility="public"/>
     </configurations>
     <dependencies>
-        <dependency org="org.geotools" name="gt-shapefile" rev="28.0"/>
+        <dependency org="org.geotools" name="gt-shapefile" rev="28.1"/>
     </dependencies>
 </ivy-module>
