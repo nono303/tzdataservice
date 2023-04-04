@@ -58,7 +58,7 @@ public class TzDataShpFileReadAndLocate {
     // Download from http://efele.net/maps/tz/world/tz_world.zip (old style)
     // or https://github.com/evansiroky/timezone-boundary-builder/releases (new
     // style)
-    final String shpfile = System.getProperty("user.home") + "/projects/tz/dist/combined-shapefile-with-oceans.shp";
+    final String shpfile = System.getProperty("shpfile");
     TzDataShpFileReadAndLocate readAndLocate = new TzDataShpFileReadAndLocate();
 
     readAndLocate.openInputShapefile(shpfile);
