@@ -18,7 +18,7 @@ public class TzDataTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    shpfile = System.getProperty("user.home") + "/projects/tz/dist/combined-shapefile-with-oceans.shp";
+    shpfile = "D:/tzdataservice/data/combined-shapefile-with-oceans.shp";
     tzdata = new TzDataShpFileReadAndLocate();
     tzdata.openInputShapefile(shpfile);
   }

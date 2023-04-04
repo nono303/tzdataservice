@@ -63,7 +63,7 @@ public class TzDataConcurrentTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    final String shpfile = System.getProperty("user.home") + "/projects/tz/dist/combined-shapefile-with-oceans.shp";
+    final String shpfile = "D:/tzdataservice/data/combined-shapefile-with-oceans.shp";
     tzdata = new TzDataShpFileReadAndLocate();
     tzdata.openInputShapefile(shpfile);
   }
