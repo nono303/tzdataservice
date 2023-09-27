@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'application'
     id 'com.github.johnrengelman.shadow' version "8.1.1"
-    id 'nebula.lint' version "18.0.3"
+    id 'nebula.lint' version "18.1.0"
 }
 
 repositories {
@@ -26,44 +26,15 @@ sourceSets {
  }
 
 dependencies {
- //     implementation "com.fasterxml.jackson.core:jackson-core:+"
- //     implementation "com.google.re2j:re2j:+"
- //     implementation "commons-pool:commons-pool:+"
- //     implementation "io.oss84.jgridshift:jgridshift-core:+"
- //     implementation "jakarta.annotation:jakarta.annotation-api:+"
- //     implementation "javax.inject:javax.inject:+"
- //     implementation "javax.measure:unit-api:+"
- //     implementation "javax.media:jai-core:+"
- //     implementation "net.bytebuddy:byte-buddy:+"
- //     implementation "net.bytebuddy:byte-buddy-agent:+"
- //     implementation "net.sf.geographiclib:GeographicLib-Java:+"
- //     implementation "org.apache.commons:commons-io:+"
- //     implementation "org.apache.commons:commons-lang3:+"
- //     implementation "org.apache.commons:commons-text:+"
- //     implementation "org.ejml:ejml-core:+"
- //     implementation "org.ejml:ejml-ddense:+"
- //     implementation "org.geotools.ogc:net.opengis.ows:+"
- //     implementation "org.geotools.ogc:org.w3.xlink:+"
- //     implementation "org.geotools:gt-epsg-hsql:+"
- //     implementation "org.geotools:gt-http:+"
-      implementation "org.geotools:gt-main:+"
-      implementation "org.geotools:gt-metadata:+"
-      implementation "org.geotools:gt-opengis:+"
- //     implementation "org.geotools:gt-property:+"
- //     implementation "org.geotools:gt-referencing:+"
-      implementation "org.geotools:gt-shapefile:+"
- //     implementation "org.hamcrest:hamcrest-core:+"
- //     implementation "org.hsqldb:hsqldb:+"
+      def geotoolsVersion = '29.2'
+      
+      implementation "org.geotools:gt-main:${geotoolsVersion}"
+      implementation "org.geotools:gt-metadata:${geotoolsVersion}"
+      implementation "org.geotools:gt-opengis:${geotoolsVersion}"
+      implementation "org.geotools:gt-shapefile:${geotoolsVersion}"
       implementation "org.locationtech.jts:jts-core:+"
- //     implementation "org.mockito:mockito-core:+"
- //     implementation "org.objenesis:objenesis:+"
- //     implementation "si.uom:si-quantity:+"
- //     implementation "si.uom:si-units:+"
- //     implementation "systems.uom:systems-common:+"
- //     implementation "tech.units:indriya:+"
- //     implementation "tech.uom.lib:uom-lib-common:+"
  
-      testImplementation "junit:junit:+"
+//    testImplementation "junit:junit:+"
 }
 application {
     mainClass = "de.kompf.tzdata.rest.TzDataService"
