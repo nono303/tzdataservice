@@ -26,8 +26,8 @@ sourceSets {
  }
 
 dependencies {
-      // https://repo.osgeo.org/service/rest/repository/browse/release/org/geotools/
-      def geotoolsVersion = '29.4'
+      // https://repo.osgeo.org/repository/release/org/geotools/gt-opengis/maven-metadata.xml
+      def geotoolsVersion = '29.5'
       
       implementation "org.geotools:gt-main:${geotoolsVersion}"
       implementation "org.geotools:gt-metadata:${geotoolsVersion}"
