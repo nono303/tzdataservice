@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'application'
     id 'com.github.johnrengelman.shadow' version "8.1.1"
-    id 'nebula.lint' version "19.0.1"
+    id 'nebula.lint' version "19.0.2"
 }
 
 repositories {
