@@ -44,6 +44,7 @@ public class TzDataService implements HttpHandler {
       System.err.println("Usage: java [OPTION] -jar tzdataservice.jar path/to/combined-shapefile-with-oceans.shp");
       System.err.println("  OPTIONS");
       System.err.println("    -Dtzdata.extend=true  extend search to coastal waters (default false)");
+	  System.err.println("    -Dlisten.any=true     listen to any IP (default false: only loopback)");
       System.exit(1);
     }
     boolean extend = "true".equals(System.getProperty("tzdata.extend", "false"));
@@ -94,14 +95,17 @@ public class TzDataService implements HttpHandler {
    * Create HTTP server that is bound to the loopback address only.
    */
   private static HttpServer createHttpServer(int port, String path, HttpHandler handler) throws IOException {
-    // bind server to loopback interface only:
-    InetSocketAddress bindAddr = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
-    // bind server to any interface (may be a security risk!):
-    // InetSocketAddress bindAddr = new InetSocketAddress(port);
+	InetSocketAddress bindAddr = null;
+	if("true".equals(System.getProperty("listen.any", "false"))) {
+		bindAddr = new InetSocketAddress(port);
+		System.out.println("listen 0.0.0.0:"+port);
+	} else {
+		bindAddr = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
+		System.out.println("listen 127.0.0.1:"+port);
+	}
     HttpServer server = HttpServer.create(bindAddr, 0);
     server.setExecutor(Executors.newCachedThreadPool());
     server.createContext(path, handler);      
     return server;
   }
-
 }
