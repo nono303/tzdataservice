@@ -2,15 +2,14 @@ plugins {
     id 'java-library'
     id 'application'
     // https://github.com/johnrengelman/shadow/releases
-    id 'com.gradleup.shadow' version "9.0.0-beta9"
+    id 'com.gradleup.shadow' version "9.0.0-beta11"
     // https://github.com/nebula-plugins/gradle-lint-plugin/releases
     id "nebula.lint" version "20.5.6"
 }
 
 repositories {
-    maven {
-        url = "https://repo.osgeo.org/repository/release"
-    }
+    maven { url = "https://repo.osgeo.org/repository/release" }
+    maven { url = "https://repo.osgeo.org/repository/geotools-snapshots" }
     mavenCentral()
 }
 
@@ -29,11 +28,11 @@ sourceSets {
 
 dependencies {
       // https://repo.osgeo.org/repository/release/org/geotools/gt-opengis/maven-metadata.xml
-      def geotoolsVersion = '29.6'
+      def geotoolsVersion = '33-SNAPSHOT'
       
       implementation "org.geotools:gt-main:${geotoolsVersion}"
       implementation "org.geotools:gt-metadata:${geotoolsVersion}"
-      implementation "org.geotools:gt-opengis:${geotoolsVersion}"
+      implementation "org.geotools:gt-api:${geotoolsVersion}"
       implementation "org.geotools:gt-shapefile:${geotoolsVersion}"
       implementation "org.locationtech.jts:jts-core:+"
  
@@ -43,7 +42,6 @@ application {
     mainClass = "de.kompf.tzdata.rest.TzDataService"
 }
 
-// https://github.com/johnrengelman/shadow
 shadowJar {
    archiveBaseName.set('tzdataservice-fatjar')
 }

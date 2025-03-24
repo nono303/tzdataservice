@@ -16,17 +16,17 @@ import org.geotools.data.DataUtilities;
 import org.geotools.data.shapefile.ShapefileDataStore;
 import org.geotools.data.shapefile.ShapefileDataStoreFactory;
 import org.geotools.data.simple.SimpleFeatureCollection;
-import org.geotools.data.simple.SimpleFeatureSource;
+import org.geotools.api.data.SimpleFeatureSource;
 import org.geotools.factory.CommonFactoryFinder;
 import org.geotools.util.factory.GeoTools;
 import org.geotools.feature.FeatureIterator;
 import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.locationtech.jts.geom.Geometry;
-import org.opengis.feature.simple.SimpleFeature;
-import org.opengis.feature.simple.SimpleFeatureType;
-import org.opengis.feature.type.AttributeDescriptor;
-import org.opengis.filter.Filter;
-import org.opengis.filter.FilterFactory2;
+import org.geotools.api.feature.simple.SimpleFeature;
+import org.geotools.api.feature.simple.SimpleFeatureType;
+import org.geotools.api.feature.type.AttributeDescriptor;
+import org.geotools.api.filter.Filter;
+import org.geotools.api.filter.FilterFactory;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -42,7 +42,7 @@ public class TzDataShpFileReadAndLocate {
   private String tzidAttr = "tzid";
   private boolean searchCoastalWaters;
   private SimpleFeatureSource featureSource;
-  private FilterFactory2 filterFactory;
+  private FilterFactory filterFactory;
   private GeometryFactory geometryFactory;
 
   /**
@@ -130,7 +130,7 @@ public class TzDataShpFileReadAndLocate {
       }
     }
 
-    filterFactory = CommonFactoryFinder.getFilterFactory2(GeoTools.getDefaultHints());
+    filterFactory = CommonFactoryFinder.getFilterFactory(GeoTools.getDefaultHints());
     geometryFactory = JTSFactoryFinder.getGeometryFactory();
   }
 

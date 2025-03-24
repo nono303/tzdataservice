@@ -5,6 +5,8 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +25,7 @@ import de.kompf.tzdata.TzDataShpFileReadAndLocate;
 public class TzDataService implements HttpHandler {
 
   private static final String URL_PATTERN = "/bylonlat/([-+]?[0-9]*\\.?[0-9]*)/([-+]?[0-9]*\\.?[0-9]*$)";
+  private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss.SSS");
   private TzDataShpFileReadAndLocate tzdata;
   private final Pattern urlPattern;
 
@@ -64,10 +67,13 @@ public class TzDataService implements HttpHandler {
    */
   @Override
   public void handle(HttpExchange httpExchange) throws IOException {
+	long millis = System.currentTimeMillis();
     if ("GET".equals(httpExchange.getRequestMethod())) {
       String path = httpExchange.getRequestURI().getPath();
       Matcher matcher = urlPattern.matcher(path);
       if (matcher.find()) {
+    	int code = 200;
+    	String detail;
         try {
           double x = Double.parseDouble(matcher.group(1));
           double y = Double.parseDouble(matcher.group(2));
@@ -76,19 +82,23 @@ public class TzDataService implements HttpHandler {
             tzid = TzDataEtc.tzNameFromLon(x);
           }
           final byte[] body = tzid.getBytes(StandardCharsets.UTF_8);
-          
-          httpExchange.sendResponseHeaders(200, body.length);
+          detail = tzid;
+          httpExchange.sendResponseHeaders(code, body.length);
           OutputStream outputStream = httpExchange.getResponseBody();
           outputStream.write(body);
           outputStream.flush();
           outputStream.close();
         } catch (NumberFormatException e) {
-          httpExchange.sendResponseHeaders(400, -1);
+        	detail = e.getMessage();
+        	code = 400;
+          httpExchange.sendResponseHeaders(code, -1);
         }
+        System.out.println(simpleDateFormat.format(new Date())+" "+code+" "+(System.currentTimeMillis()-millis)+"\t"+path+"\t"+detail);
       } else {
         httpExchange.sendResponseHeaders(400, -1);
       }
     }
+    
   }
 
   /**
@@ -98,10 +108,10 @@ public class TzDataService implements HttpHandler {
 	InetSocketAddress bindAddr = null;
 	if("true".equals(System.getProperty("listen.any", "false"))) {
 		bindAddr = new InetSocketAddress(port);
-		System.out.println("listen 0.0.0.0:"+port);
+		System.out.println(simpleDateFormat.format(new Date())+" "+"listen 0.0.0.0:"+port);
 	} else {
 		bindAddr = new InetSocketAddress(InetAddress.getLoopbackAddress(), port);
-		System.out.println("listen 127.0.0.1:"+port);
+		System.out.println(simpleDateFormat.format(new Date())+" "+"listen 127.0.0.1:"+port);
 	}
     HttpServer server = HttpServer.create(bindAddr, 0);
     server.setExecutor(Executors.newCachedThreadPool());
