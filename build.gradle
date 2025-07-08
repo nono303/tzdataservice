@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'application'
     // https://github.com/johnrengelman/shadow/releases
-    id 'com.gradleup.shadow' version "9.0.0-beta17"
+    id 'com.gradleup.shadow' version "9.0.0-rc1"
     // https://github.com/nebula-plugins/gradle-lint-plugin/releases
     id "nebula.lint" version "21.0.0"
 }
@@ -28,7 +28,7 @@ sourceSets {
 
 dependencies {
       // https://repo.osgeo.org/repository/snapshot/org/geotools/gt-main/maven-metadata.xml
-      def geotoolsVersion = '34-SNAPSHOT'
+      def geotoolsVersion = '+'
       
       implementation "org.geotools:gt-main:${geotoolsVersion}"
       implementation "org.geotools:gt-metadata:${geotoolsVersion}"
